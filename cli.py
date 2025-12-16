@@ -2,16 +2,28 @@ import agendamento
 
 def cli():
     cmd = ""
-    print("Bem-vindo ao sistema de agendamento automático.")
+    print("=== Bem-vindo ao sistema de agendamento automático ===")
 
-    print("Insira o Login e a Senha para continuar.")
-    login = input("Login: ")
-    senha = input("Senha: ")
+    while True:
+        print("\nInsira o Login e a Senha para continuar.")
+        login = input("Login: ")
+        senha = input("Senha: ")
+        
+        if login and senha:
+            break
+        print("Erro: Login e Senha são obrigatórios.")
 
-    id_agenda = input("Insira o ID da agenda (calendário): ") # 280
-    n_pacientes = input("Insira quantos pacientes deseja agendar: ")
-    n_dias = input("Insira quantos dias a partir de hoje deseja preencher: ")
-    print("Lendo planilha e exibindo prévia dos agendamentos...")
-    agendamento.agendamento(login, senha, int(n_pacientes), int(n_dias) + 1, int(id_agenda))
+    id_agenda = int(input("Insira o ID da agenda (calendário): ")) #280
+    n_pacientes = int(input("Insira quantos pacientes deseja agendar: "))
+    n_dias = int(input("Insira quantos dias a partir de hoje deseja preencher: "))
+
+    print("\nLendo planilha e processando agendamentos...")
+    
+    try:
+        agendamento.agendamento(login, senha, n_pacientes, n_dias + 1, id_agenda)
+        print("\nProcesso finalizado com sucesso!")
+        
+    except Exception as e:
+        print(f"\nOcorreu um erro durante o processamento: {e}")
     while cmd.upper() != "X":
         cmd = input("Insira 'X' para sair: ")
